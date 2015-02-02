@@ -16,15 +16,26 @@ class GameData {
   /// タップ時の挙動（開くか、地雷チェックか）
   var tapMode = TapMode.Open
   
+  /// 開いたマスの数
+  var openSquareCount = 0
+  
   /// ゲーム開始前に決める設定
   let setting = Setting.sharedInstance
   
   /// シングルトン取得
   class var sharedInstance : GameData {
     struct Static {
-      static let instance : GameData = GameData();
+      static let instance = GameData();
     }
     return Static.instance
+  }
+  
+  /**
+  *  ゲームを最初からやり直すため、値をリセット
+  */
+  func resetAllData() {
+    setting.unsetBombCount = setting.bombCount
+    openSquareCount = 0
   }
 
   /**
@@ -67,7 +78,7 @@ class GameData {
     /// シングルトン取得
     class var sharedInstance : Setting {
       struct Static {
-        static let instance : Setting = Setting();
+        static let instance = Setting();
       }
       return Static.instance
     }
