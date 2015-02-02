@@ -8,8 +8,19 @@
 
 import UIKit
 
+/**
+*  GameManagerへの委譲用プロトコル
+*/
 protocol SquareDelegate {
   func finishGame(gameResult: GameResult)
+}
+
+/**
+*  マスのStateへのプロトコル
+*/
+private protocol SquareState {
+  func doTouchDown(square: Square) // タップ押下時
+  func doTouchUp(square: Square)   // タップを離した時
 }
 
 /**
@@ -17,10 +28,18 @@ protocol SquareDelegate {
 */
 class Square : UIImageView {
 
+  /// GameMasterへのデリゲート
   var delegate: SquareDelegate?
-  var state : SquareState = SquareState.Empty
+  /// マスの状態を保持するプロパティ
+  private var state : SquareState = EmptyState.sharedInstance
+  /// フィールド上の位置
   let position : (Int, Int)
   
+  /**
+  イニシャライザ。ここで爆弾を保持するかどうかを決定
+  
+  :param: position フィールド上の位置
+  */
   init(position : (Int, Int)) {
 
     self.position = position
@@ -31,31 +50,30 @@ class Square : UIImageView {
 
     // 爆弾をセット
     if canSetBomb() {
-      self.state = SquareState.Bomb
+      self.state = BombState.sharedInstance
       println("Bomb is in \(position)")
     }
   }
-
+  
+  /**
+  自動生成のイニシャライザ
+  */
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
+  /**
+  タップ押下時の処理
+  */
   override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-    if state == SquareState.Empty {
-      image = UIImage(named: "btn_over")
-    }
+    state.doTouchDown(self)
   }
   
+  /**
+  タップを離した時の処理
+  */
   override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-    if state == SquareState.Empty {
-      // 中身が空だったとき
-      image = UIImage(named: "btn")
-
-    } else if state == SquareState.Bomb {
-      // 中身が爆弾のとき
-      image = UIImage(named: "bomb")
-      delegate?.finishGame(GameResult.Gameover)
-    }
+    state.doTouchUp(self)
   }
   
   /**
@@ -74,6 +92,95 @@ class Square : UIImageView {
       return true
     } else {
       return false
+    }
+  }
+  
+  
+  
+  /**
+  *  爆弾でなく、かつ開いていないマスのStateクラス
+  */
+  private class EmptyState: SquareState {
+    class var sharedInstance: EmptyState {
+      struct Static {
+        static let instance = EmptyState()
+      }
+      return Static.instance
+    }
+    
+    /**
+    ボタンを押した画像に変更
+    
+    :param: square マスのインスタンス
+    */
+    private func doTouchDown(square: Square) {
+      square.image = UIImage(named: "btn_over")
+    }
+    
+    private func doTouchUp(square: Square) {
+      square.image = UIImage(named: "btn")
+    }
+  }
+  
+  /**
+  *  すでに開いているマスのStateクラス
+  */
+  private class OpenState: SquareState {
+    class var sharedInstance: OpenState {
+      struct Static {
+        static let instance = OpenState()
+      }
+      return Static.instance
+    }
+    
+    /**
+    何もしない
+    
+    :param: square マスのインスタンス
+    */
+    private func doTouchDown(square: Square) {}
+    private func doTouchUp(square: Square) {}
+  }
+  
+  /**
+  *  爆弾が入っているマスのStateクラス
+  */
+  private class BombState: SquareState {
+    class var sharedInstance: BombState {
+      struct Static {
+        static let instance = BombState()
+      }
+      return Static.instance
+    }
+    
+    private func doTouchDown(square: Square) {
+      
+    }
+    
+    private func doTouchUp(square: Square) {
+      square.image = UIImage(named: "bomb")
+      square.delegate?.finishGame(GameResult.Gameover)
+      println("-----------GAMEOVER-----------")
+    }
+  }
+  
+  /**
+  *  地雷チェックがされているマスのStateクラス
+  */
+  private class FlagState: SquareState {
+    class var sharedInstance: FlagState {
+      struct Static {
+        static let instance = FlagState()
+      }
+      return Static.instance
+    }
+    
+    private func doTouchDown(square: Square) {
+      
+    }
+    
+    private func doTouchUp(square: Square) {
+      
     }
   }
 }

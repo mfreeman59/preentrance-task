@@ -12,7 +12,6 @@
 		E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC8101A7E65E900CE796A /* GameManager.swift */; };
 		E491D2D41A7DFDAB009CDC86 /* BattleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E491D2D31A7DFDAB009CDC86 /* BattleField.swift */; };
 		E4A156901A7E139C001CAF88 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1568F1A7E139C001CAF88 /* Square.swift */; };
-		E4A156921A7E2119001CAF88 /* SquareState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A156911A7E2119001CAF88 /* SquareState.swift */; };
 		E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4921A6BF94E00C48448 /* AppDelegate.swift */; };
 		E4B4D4951A6BF94E00C48448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4941A6BF94E00C48448 /* ViewController.swift */; };
 		E4B4D4981A6BF94E00C48448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4B4D4961A6BF94E00C48448 /* Main.storyboard */; };
@@ -39,7 +38,6 @@
 		E45BC8101A7E65E900CE796A /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		E491D2D31A7DFDAB009CDC86 /* BattleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleField.swift; sourceTree = "<group>"; };
 		E4A1568F1A7E139C001CAF88 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
-		E4A156911A7E2119001CAF88 /* SquareState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareState.swift; sourceTree = "<group>"; };
 		E4B4D48D1A6BF94E00C48448 /* MineSweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineSweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B4D4911A6BF94E00C48448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4B4D4921A6BF94E00C48448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 		E45BC80C1A7E583500CE796A /* enum */ = {
 			isa = PBXGroup;
 			children = (
-				E4A156911A7E2119001CAF88 /* SquareState.swift */,
 				E45BC80D1A7E585A00CE796A /* TapMode.swift */,
 				E42B40BC1A7E6F2A00E677EB /* GameResult.swift */,
 			);
@@ -249,7 +246,6 @@
 				E4B4D4B91A7015CD00C48448 /* Rule.swift in Sources */,
 				E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */,
 				E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */,
-				E4A156921A7E2119001CAF88 /* SquareState.swift in Sources */,
 				E4A156901A7E139C001CAF88 /* Square.swift in Sources */,
 				E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */,
 				E491D2D41A7DFDAB009CDC86 /* BattleField.swift in Sources */,
