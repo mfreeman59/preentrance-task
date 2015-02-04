@@ -229,7 +229,11 @@ class Square : UIImageView {
       
       if tapMode == TapMode.CheckBomb {
         square.image = UIImage(named: "btn")
-        square.state = EmptyState.sharedInstance
+        if square.isBomb {
+          square.state = BombState.sharedInstance
+        } else {
+          square.state = EmptyState.sharedInstance
+        }
         // 空いているマスの数を減らす
         GameData.sharedInstance.openSquareCount--
       }
