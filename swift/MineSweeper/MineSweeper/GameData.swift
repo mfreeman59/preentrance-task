@@ -89,7 +89,7 @@ class GameData {
     */
     let squareSize: Int = 64
     
-    init() {
+    private init() {
       self.unsetBombCount = bombCount
       self.squareCount = fieldWidth * fieldHeight
     }
