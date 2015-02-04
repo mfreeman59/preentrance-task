@@ -34,14 +34,14 @@ class ContentJudge {
     let squarePositions = getSurroundSquarePositions(square)
     
     for position in squarePositions {
-      let targetSquare = GameData.sharedInstance.squares[position.0][position.1]
-      // TODO: SquareStateTypeのenumを作って処理を分ける
-//      if targetSquare.state {
-//        
-//      }
+      let targetSquare: Square = GameData.sharedInstance.squares[position.0][position.1]
+
+      if targetSquare.getStateType() == SquareStateType.Bomb {
+        bombCount++
+      }
     }
     
-    return ContentType.Empty
+    return ContentType(rawValue: bombCount)!
   }
   
   /**
@@ -51,7 +51,7 @@ class ContentJudge {
   
   :returns: まわりのマスの位置
   */
-  func getSurroundSquarePositions(square: Square) -> [(Int, Int)] {
+  private func getSurroundSquarePositions(square: Square) -> [(Int, Int)] {
     let row = square.position.0
     let column = square.position.1
     
@@ -70,7 +70,7 @@ class ContentJudge {
       let fieldWidth = setting.fieldWidth
       let fieldHeight = setting.fieldHeight
       
-      return 0...fieldWidth ~= x || 0...fieldHeight ~= y
+      return 0...fieldWidth-1 ~= x && 0...fieldHeight-1 ~= y
     })
   }
 }

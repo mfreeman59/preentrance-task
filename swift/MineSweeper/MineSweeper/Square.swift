@@ -19,8 +19,16 @@ protocol SquareDelegate {
 *  マスのStateへのプロトコル
 */
 private protocol SquareState {
-  func doTouchDown(square: Square) // タップ押下時
-  func doTouchUp(square: Square)   // タップを離した時
+  func doTouchDown(square: Square)  // タップ押下時
+  func doTouchUp(square: Square)    // タップを離した時
+  func getStateType() -> SquareStateType // Stateのenumを返す
+}
+
+/**
+*  マスのStateのenum
+*/
+enum SquareStateType {
+  case Empty, Open, Bomb, Flag
 }
 
 /**
@@ -77,6 +85,15 @@ class Square : UIImageView {
   }
   
   /**
+  マスのStateを返す
+  
+  :returns: Stateのenum
+  */
+  func getStateType() -> SquareStateType {
+    return state.getStateType()
+  }
+  
+  /**
   爆弾をセットするマスか判定するメソッド
   とりあえず、1/2の確率で単純に判定する
   
@@ -118,9 +135,13 @@ class Square : UIImageView {
     }
     
     private func doTouchUp(square: Square) {
-      square.image = UIImage(named: "btn")
-      
-      
+      let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
+      let imageName: String = ContentType.getImageName(bombCount)
+      square.image = UIImage(named: imageName)
+    }
+    
+    private func getStateType() -> SquareStateType {
+      return SquareStateType.Empty
     }
   }
   
@@ -142,7 +163,11 @@ class Square : UIImageView {
     */
     private func doTouchDown(square: Square) {}
     private func doTouchUp(square: Square) {}
-  }
+    
+    private func getStateType() -> SquareStateType {
+      return SquareStateType.Open
+    }
+}
   
   /**
   *  爆弾が入っているマスのStateクラス
@@ -164,6 +189,10 @@ class Square : UIImageView {
       square.delegate?.finishGame(GameResult.Gameover)
       println("-----------GAMEOVER-----------")
     }
+    
+    private func getStateType() -> SquareStateType {
+      return SquareStateType.Bomb
+    }
   }
   
   /**
@@ -183,6 +212,10 @@ class Square : UIImageView {
     
     private func doTouchUp(square: Square) {
       
+    }
+    
+    private func getStateType() -> SquareStateType {
+      return SquareStateType.Flag
     }
   }
 }
