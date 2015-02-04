@@ -39,6 +39,7 @@ class GameData {
   func resetAllData() {
     setting.unsetBombCount = setting.bombCount
     openSquareCount = 0
+    squares.removeAll(keepCapacity: true)
   }
 
   /**

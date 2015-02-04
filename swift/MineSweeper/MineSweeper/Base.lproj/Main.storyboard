@@ -34,6 +34,9 @@
                                     <segment title="開く"/>
                                     <segment title="地雷チェック"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="zGi-sk-uFz"/>
+                                </connections>
                             </segmentedControl>
                             <view hidden="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oiw-5v-SoV" userLabel="Result View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>

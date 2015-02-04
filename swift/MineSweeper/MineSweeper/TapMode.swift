@@ -6,6 +6,6 @@
 //  Copyright (c) 2015年 Kengo Matsuda. All rights reserved.
 //
 
-enum TapMode {
+enum TapMode: Int {
   case Open, CheckBomb
 }

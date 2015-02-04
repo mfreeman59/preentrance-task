@@ -40,6 +40,8 @@ class Square : UIImageView {
   var delegate: SquareDelegate?
   /// マスの状態を保持するプロパティ
   private var state : SquareState = EmptyState.sharedInstance
+  /// 旗を立てられても（Stateが変わっても）保持する爆弾フラグ
+  var isBomb = false
   /// フィールド上の位置
   let position : (Int, Int)
   
@@ -59,6 +61,7 @@ class Square : UIImageView {
     // 爆弾をセット
     if canSetBomb() {
       self.state = BombState.sharedInstance
+      self.isBomb = true
       println("Bomb is in \(position)")
     }
   }
@@ -84,6 +87,7 @@ class Square : UIImageView {
     state.doTouchUp(self)
   }
   
+  // TODO: 計算型プロパティで体現できないか模索
   /**
   マスのStateを返す
   
@@ -93,6 +97,7 @@ class Square : UIImageView {
     return state.getStateType()
   }
   
+  // TODO: 爆弾セットのアルゴリズム変更
   /**
   爆弾をセットするマスか判定するメソッド
   とりあえず、1/2の確率で単純に判定する
@@ -113,7 +118,10 @@ class Square : UIImageView {
   }
   
   
-  // TODO: 各Stateを個々のファイルに分ける
+  // TODO: EmptyStateとBombStateのTouchUp(ボタン押下時の切り替え)のことを考え、親クラスを作る
+  // TODO: 地雷チェックのところの分岐も親クラスにまとめたい
+  // TODO: Imageファイル名のハードコーディングをどうにかする
+  // TODO: 間違ったものに旗をたてた時の処理
   /**
   *  爆弾でなく、かつ開いていないマスのStateクラス
   */
@@ -135,9 +143,17 @@ class Square : UIImageView {
     }
     
     private func doTouchUp(square: Square) {
-      let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
-      let imageName: String = ContentType.getImageName(bombCount)
-      square.image = UIImage(named: imageName)
+      let tapMode: TapMode = GameData.sharedInstance.tapMode
+      
+      if tapMode == TapMode.CheckBomb {
+        square.image = UIImage(named: "flag")
+        square.state = FlagState.sharedInstance
+      } else {
+        let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
+        let imageName: String = ContentType.getImageName(bombCount)
+        square.image = UIImage(named: imageName)
+        square.state = OpenState.sharedInstance
+      }
     }
     
     private func getStateType() -> SquareStateType {
@@ -167,10 +183,10 @@ class Square : UIImageView {
     private func getStateType() -> SquareStateType {
       return SquareStateType.Open
     }
-}
+  }
   
   /**
-  *  爆弾が入っているマスのStateクラス
+  *  爆弾が入っているマスのStateクラス（開いていない状態）
   */
   private class BombState: SquareState {
     class var sharedInstance: BombState {
@@ -181,13 +197,20 @@ class Square : UIImageView {
     }
     
     private func doTouchDown(square: Square) {
-      
+      square.image = UIImage(named: "btn_over")
     }
     
     private func doTouchUp(square: Square) {
-      square.image = UIImage(named: "bomb")
-      square.delegate?.finishGame(GameResult.Gameover)
-      println("-----------GAMEOVER-----------")
+      let tapMode: TapMode = GameData.sharedInstance.tapMode
+      
+      if tapMode == TapMode.CheckBomb {
+        square.image = UIImage(named: "flag")
+        square.state = FlagState.sharedInstance
+      } else {
+        square.image = UIImage(named: "bomb")
+        square.delegate?.finishGame(GameResult.Gameover)
+        println("-----------GAMEOVER-----------")
+      }
     }
     
     private func getStateType() -> SquareStateType {
@@ -207,11 +230,12 @@ class Square : UIImageView {
     }
     
     private func doTouchDown(square: Square) {
-      
+      square.image = UIImage(named: "btn_over")
     }
     
     private func doTouchUp(square: Square) {
-      
+      square.image = UIImage(named: "btn")
+      square.state = EmptyState.sharedInstance
     }
     
     private func getStateType() -> SquareStateType {

@@ -36,7 +36,7 @@ class ContentJudge {
     for position in squarePositions {
       let targetSquare: Square = GameData.sharedInstance.squares[position.0][position.1]
 
-      if targetSquare.getStateType() == SquareStateType.Bomb {
+      if targetSquare.isBomb {
         bombCount++
       }
     }

@@ -15,6 +15,10 @@ class ViewController: UIViewController, GameManagerDelegate {
   @IBOutlet var resultView:UIView?
   @IBOutlet var resultText:UILabel?
 
+  @IBAction func segmentChange(sender: UISegmentedControl) {
+    GameData.sharedInstance.tapMode = TapMode(rawValue: sender.selectedSegmentIndex)!
+  }
+
   let gameManager: GameManager = GameManager.sharedInstance
   
   override func viewDidLoad() {
