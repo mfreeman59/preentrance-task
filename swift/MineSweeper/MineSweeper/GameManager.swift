@@ -70,6 +70,12 @@ class GameManager {
   */
   func finishGame(gameResult: GameResult) {
     delegate?.resultView?.hidden = false
+    
+    if gameResult == GameResult.Clear {
+      delegate?.resultText?.text = "GAME CLEAR"
+    } else {
+      delegate?.resultText?.text = "GAME OVER"
+    }
   }
   
   /**

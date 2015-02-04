@@ -56,9 +56,9 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAME OVER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MD0-2l-tKR">
-                                        <rect key="frame" x="170" y="233" width="260" height="40"/>
+                                        <rect key="frame" x="140" y="233" width="320" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="260" id="gvW-PV-9WG"/>
+                                            <constraint firstAttribute="width" constant="320" id="gvW-PV-9WG"/>
                                             <constraint firstAttribute="height" constant="40" id="oMj-TU-Yur"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
