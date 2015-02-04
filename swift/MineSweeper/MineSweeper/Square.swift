@@ -9,27 +9,49 @@
 import UIKit
 
 /**
-*  GameManagerへの委譲用プロトコル
+*  マスのStateの抽象クラス
 */
-protocol SquareDelegate {
-  func finishGame(gameResult: GameResult)
+private class SquareState {
+  /**
+  タップ押下時のイベントリスナー
+  
+  :param: square マスのインスタンス
+  */
+  func doTouchDown(square: Square) {
+    fatalError("must be overridedn")
+  }
+  
+  /**
+  タップを離した時のイベントリスナー
+  
+  :param: square マスのインスタンス
+  */
+  func doTouchUp(square: Square) {
+    fatalError("must be overridedn")
+  }
+  
+  /**
+  *  ゲームが終了したか判定するメソッド
+  */
+  func judgeGameIsCleared() {
+    let gameData = GameData.sharedInstance
+    let unopenSquareCount = gameData.setting.squareCount - ++gameData.openSquareCount
+    
+    println("残りのマス数： \(unopenSquareCount)")
+    
+    // すべてのマスが開いた場合
+    if unopenSquareCount == 0 {
+      GameManager.sharedInstance.finishGame(GameResult.Clear)
+    }
+  }
 }
 
-/**
-*  マスのStateへのプロトコル
-*/
-private protocol SquareState {
-  func doTouchDown(square: Square)  // タップ押下時
-  func doTouchUp(square: Square)    // タップを離した時
-}
-
+// TODO: このクラス、全体的にリファクタする
 /**
 *  マスのクラス
 */
 class Square : UIImageView {
 
-  /// GameMasterへのデリゲート
-  var delegate: SquareDelegate?
   /// マスの状態を保持するプロパティ
   private var state : SquareState = EmptyState.sharedInstance
   /// 旗を立てられても（Stateが変わっても）保持する爆弾フラグ
@@ -100,10 +122,8 @@ class Square : UIImageView {
   }
   
   
-  // TODO: EmptyStateとBombStateのTouchUp(ボタン押下時の切り替え)のことを考え、親クラスを作る
   // TODO: 地雷チェックのところの分岐も親クラスにまとめたい
   // TODO: Imageファイル名のハードコーディングをどうにかする
-  // TODO: 間違ったものに旗をたてた時の処理
   /**
   *  爆弾でなく、かつ開いていないマスのStateクラス
   */
@@ -120,11 +140,11 @@ class Square : UIImageView {
     
     :param: square マスのインスタンス
     */
-    private func doTouchDown(square: Square) {
+    private override func doTouchDown(square: Square) {
       square.image = UIImage(named: "btn_over")
     }
     
-    private func doTouchUp(square: Square) {
+    private override func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
@@ -136,6 +156,8 @@ class Square : UIImageView {
         square.image = UIImage(named: imageName)
         square.state = OpenState.sharedInstance
       }
+
+      judgeGameIsCleared()
     }
   }
   
@@ -155,8 +177,8 @@ class Square : UIImageView {
     
     :param: square マスのインスタンス
     */
-    private func doTouchDown(square: Square) {}
-    private func doTouchUp(square: Square) {}
+    private override func doTouchDown(square: Square) {}
+    private override func doTouchUp(square: Square) {}
   }
   
   /**
@@ -170,19 +192,20 @@ class Square : UIImageView {
       return Static.instance
     }
     
-    private func doTouchDown(square: Square) {
+    private override func doTouchDown(square: Square) {
       square.image = UIImage(named: "btn_over")
     }
     
-    private func doTouchUp(square: Square) {
+    private override func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
         square.image = UIImage(named: "flag")
         square.state = FlagState.sharedInstance
+        judgeGameIsCleared()
       } else {
         square.image = UIImage(named: "bomb")
-        square.delegate?.finishGame(GameResult.Gameover)
+        GameManager.sharedInstance.finishGame(GameResult.Gameover)
         println("-----------GAMEOVER-----------")
       }
     }
@@ -199,13 +222,17 @@ class Square : UIImageView {
       return Static.instance
     }
     
-    private func doTouchDown(square: Square) {
-      square.image = UIImage(named: "btn_over")
-    }
+    private override func doTouchDown(square: Square) {}
     
-    private func doTouchUp(square: Square) {
-      square.image = UIImage(named: "btn")
-      square.state = EmptyState.sharedInstance
+    private override func doTouchUp(square: Square) {
+      let tapMode: TapMode = GameData.sharedInstance.tapMode
+      
+      if tapMode == TapMode.CheckBomb {
+        square.image = UIImage(named: "btn")
+        square.state = EmptyState.sharedInstance
+        // 空いているマスの数を減らす
+        GameData.sharedInstance.openSquareCount--
+      }
     }
   }
 }

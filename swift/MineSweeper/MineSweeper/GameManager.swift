@@ -18,7 +18,7 @@ protocol GameManagerDelegate {
 /**
 *  ゲーム進行を管理するクラス
 */
-class GameManager: SquareDelegate {
+class GameManager {
   
   var delegate: GameManagerDelegate?
   
@@ -44,7 +44,6 @@ class GameManager: SquareDelegate {
       
       for j in 0..<setting.fieldHeight {
         let btn = Square(position: (i, j))
-        btn.delegate = self
         // マスの追加＆位置の決定
         delegate?.buttleField?.addSubview(btn)
         btn.frame = CGRectMake(CGFloat(
