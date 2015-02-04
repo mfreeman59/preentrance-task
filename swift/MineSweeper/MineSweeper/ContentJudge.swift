@@ -19,6 +19,8 @@ class ContentJudge {
     return Static.instance
   }
   
+  private init() {}
+  
   /**
   まわりのマスを検索し、爆弾の数を返すメソッド
   

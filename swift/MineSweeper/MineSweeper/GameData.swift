@@ -33,6 +33,8 @@ class GameData {
     return Static.instance
   }
   
+  private init() {}
+  
   /**
   *  ゲームを最初からやり直すため、値をリセット
   */

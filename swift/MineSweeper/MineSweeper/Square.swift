@@ -21,14 +21,6 @@ protocol SquareDelegate {
 private protocol SquareState {
   func doTouchDown(square: Square)  // タップ押下時
   func doTouchUp(square: Square)    // タップを離した時
-  func getStateType() -> SquareStateType // Stateのenumを返す
-}
-
-/**
-*  マスのStateのenum
-*/
-enum SquareStateType {
-  case Empty, Open, Bomb, Flag
 }
 
 /**
@@ -85,16 +77,6 @@ class Square : UIImageView {
   */
   override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
     state.doTouchUp(self)
-  }
-  
-  // TODO: 計算型プロパティで体現できないか模索
-  /**
-  マスのStateを返す
-  
-  :returns: Stateのenum
-  */
-  func getStateType() -> SquareStateType {
-    return state.getStateType()
   }
   
   // TODO: 爆弾セットのアルゴリズム変更
@@ -155,10 +137,6 @@ class Square : UIImageView {
         square.state = OpenState.sharedInstance
       }
     }
-    
-    private func getStateType() -> SquareStateType {
-      return SquareStateType.Empty
-    }
   }
   
   /**
@@ -179,10 +157,6 @@ class Square : UIImageView {
     */
     private func doTouchDown(square: Square) {}
     private func doTouchUp(square: Square) {}
-    
-    private func getStateType() -> SquareStateType {
-      return SquareStateType.Open
-    }
   }
   
   /**
@@ -212,10 +186,6 @@ class Square : UIImageView {
         println("-----------GAMEOVER-----------")
       }
     }
-    
-    private func getStateType() -> SquareStateType {
-      return SquareStateType.Bomb
-    }
   }
   
   /**
@@ -236,10 +206,6 @@ class Square : UIImageView {
     private func doTouchUp(square: Square) {
       square.image = UIImage(named: "btn")
       square.state = EmptyState.sharedInstance
-    }
-    
-    private func getStateType() -> SquareStateType {
-      return SquareStateType.Flag
     }
   }
 }

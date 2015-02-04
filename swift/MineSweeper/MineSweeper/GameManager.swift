@@ -29,6 +29,8 @@ class GameManager: SquareDelegate {
     return Static.instance
   }
   
+  private init() {}
+  
   /**
   マスの初期化
   */

@@ -12,7 +12,6 @@
 		E42B40C11A812FD200E677EB /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40C01A812FD200E677EB /* ContentType.swift */; };
 		E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC80D1A7E585A00CE796A /* TapMode.swift */; };
 		E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC8101A7E65E900CE796A /* GameManager.swift */; };
-		E491D2D41A7DFDAB009CDC86 /* BattleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E491D2D31A7DFDAB009CDC86 /* BattleField.swift */; };
 		E4A156901A7E139C001CAF88 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1568F1A7E139C001CAF88 /* Square.swift */; };
 		E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4921A6BF94E00C48448 /* AppDelegate.swift */; };
 		E4B4D4951A6BF94E00C48448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4941A6BF94E00C48448 /* ViewController.swift */; };
@@ -21,7 +20,6 @@
 		E4B4D49D1A6BF94E00C48448 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4B4D49B1A6BF94E00C48448 /* LaunchScreen.xib */; };
 		E4B4D4A91A6BF94E00C48448 /* MineSweeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4A81A6BF94E00C48448 /* MineSweeperTests.swift */; };
 		E4B4D4B31A70157900C48448 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4B21A70157900C48448 /* GameData.swift */; };
-		E4B4D4B91A7015CD00C48448 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4B81A7015CD00C48448 /* Rule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +38,6 @@
 		E42B40C01A812FD200E677EB /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		E45BC80D1A7E585A00CE796A /* TapMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapMode.swift; sourceTree = "<group>"; };
 		E45BC8101A7E65E900CE796A /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
-		E491D2D31A7DFDAB009CDC86 /* BattleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleField.swift; sourceTree = "<group>"; };
 		E4A1568F1A7E139C001CAF88 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		E4B4D48D1A6BF94E00C48448 /* MineSweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineSweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B4D4911A6BF94E00C48448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,7 +50,6 @@
 		E4B4D4A71A6BF94E00C48448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4B4D4A81A6BF94E00C48448 /* MineSweeperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSweeperTests.swift; sourceTree = "<group>"; };
 		E4B4D4B21A70157900C48448 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
-		E4B4D4B81A7015CD00C48448 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +109,6 @@
 				E4B4D49B1A6BF94E00C48448 /* LaunchScreen.xib */,
 				E4B4D4901A6BF94E00C48448 /* Supporting Files */,
 				E4B4D4B21A70157900C48448 /* GameData.swift */,
-				E4B4D4B81A7015CD00C48448 /* Rule.swift */,
-				E491D2D31A7DFDAB009CDC86 /* BattleField.swift */,
 				E4A1568F1A7E139C001CAF88 /* Square.swift */,
 				E45BC8101A7E65E900CE796A /* GameManager.swift */,
 				E42B40BE1A812D1F00E677EB /* ContentJudge.swift */,
@@ -250,13 +244,11 @@
 				E4B4D4951A6BF94E00C48448 /* ViewController.swift in Sources */,
 				E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */,
 				E42B40C11A812FD200E677EB /* ContentType.swift in Sources */,
-				E4B4D4B91A7015CD00C48448 /* Rule.swift in Sources */,
 				E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */,
 				E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */,
 				E42B40BF1A812D1F00E677EB /* ContentJudge.swift in Sources */,
 				E4A156901A7E139C001CAF88 /* Square.swift in Sources */,
 				E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */,
-				E491D2D41A7DFDAB009CDC86 /* BattleField.swift in Sources */,
 				E4B4D4B31A70157900C48448 /* GameData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
