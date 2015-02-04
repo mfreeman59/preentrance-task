@@ -16,8 +16,11 @@ class GameData {
   /// タップ時の挙動（開くか、地雷チェックか）
   var tapMode = TapMode.Open
   
-  /// 開いたマスの数
-  var openSquareCount = 0
+  /// 使っていない旗の数
+  var flagUnused: Int
+  
+  /// フラグが立てられていない爆弾の数
+  var bombUnflagged: Int
   
   /// フィールド上にあるマスの情報
   var squares = [[Square]]()
@@ -33,15 +36,19 @@ class GameData {
     return Static.instance
   }
   
-  private init() {}
+  private init() {
+    self.bombUnflagged = Setting.sharedInstance.bombCount
+    self.flagUnused = self.bombUnflagged
+  }
   
   /**
   *  ゲームを最初からやり直すため、値をリセット
   */
   func resetAllData() {
     setting.unsetBombCount = setting.bombCount
-    openSquareCount = 0
     squares.removeAll(keepCapacity: true)
+    bombUnflagged = setting.bombCount
+    flagUnused = setting.bombCount
   }
 
   /**

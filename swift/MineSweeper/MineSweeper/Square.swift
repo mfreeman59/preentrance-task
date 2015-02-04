@@ -35,12 +35,15 @@ private class SquareState {
   */
   func judgeGameIsCleared() {
     let gameData = GameData.sharedInstance
-    let unopenSquareCount = gameData.setting.squareCount - ++gameData.openSquareCount
+    let flagUnused = gameData.flagUnused
+    let bombUnflagged = gameData.bombUnflagged
     
-    println("残りのマス数： \(unopenSquareCount)")
+    println("残りの未使用フラグ数： \(flagUnused)")
+    println("残りの爆弾の数： \(bombUnflagged)")
     
-    // すべてのマスが開いた場合
-    if unopenSquareCount == 0 {
+    // TODO: クリア時にまだ開いていないマスは自動的に開ける
+    // すべてのマスが開き、爆弾もぴったりフラグが立てられた場合
+    if flagUnused == 0 && bombUnflagged == 0 {
       GameManager.sharedInstance.finishGame(GameResult.Clear)
     }
   }
@@ -150,6 +153,7 @@ class Square : UIImageView {
       if tapMode == TapMode.CheckBomb {
         square.image = UIImage(named: "flag")
         square.state = FlagState.sharedInstance
+        GameData.sharedInstance.flagUnused--
       } else {
         let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
         let imageName: String = ContentType.getImageName(bombCount)
@@ -198,10 +202,20 @@ class Square : UIImageView {
     
     private override func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
+      let gameData = GameData.sharedInstance
       
       if tapMode == TapMode.CheckBomb {
         square.image = UIImage(named: "flag")
         square.state = FlagState.sharedInstance
+        
+        // クリア判定のための数値の変更
+        if square.isBomb {
+          gameData.bombUnflagged--
+          println("残りの爆弾の数： \(gameData.bombUnflagged)")
+        }
+        gameData.flagUnused--
+        
+        // クリア判定
         judgeGameIsCleared()
       } else {
         square.image = UIImage(named: "bomb")
@@ -225,17 +239,21 @@ class Square : UIImageView {
     private override func doTouchDown(square: Square) {}
     
     private override func doTouchUp(square: Square) {
+      let gameData = GameData.sharedInstance
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
         square.image = UIImage(named: "btn")
+
         if square.isBomb {
           square.state = BombState.sharedInstance
+          gameData.bombUnflagged++
+          println("残りの爆弾の数： \(GameData.sharedInstance.bombUnflagged)")
         } else {
           square.state = EmptyState.sharedInstance
         }
-        // 空いているマスの数を減らす
-        GameData.sharedInstance.openSquareCount--
+        
+        gameData.flagUnused++
       }
     }
   }
