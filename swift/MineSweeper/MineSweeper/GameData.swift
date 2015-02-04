@@ -19,13 +19,16 @@ class GameData {
   /// 開いたマスの数
   var openSquareCount = 0
   
+  /// フィールド上にあるマスの情報
+  var squares = [[Square]]()
+  
   /// ゲーム開始前に決める設定
   let setting = Setting.sharedInstance
   
   /// シングルトン取得
   class var sharedInstance : GameData {
     struct Static {
-      static let instance = GameData();
+      static let instance = GameData()
     }
     return Static.instance
   }
@@ -67,18 +70,24 @@ class GameData {
     let fieldHeight: Int = 5
     
     /**
+    *  マスの数
+    */
+    let squareCount: Int
+    
+    /**
     *  マスのサイズ
     */
     let squareSize: Int = 64
     
     init() {
       self.unsetBombCount = bombCount
+      self.squareCount = fieldWidth * fieldHeight
     }
     
     /// シングルトン取得
     class var sharedInstance : Setting {
       struct Static {
-        static let instance = Setting();
+        static let instance = Setting()
       }
       return Static.instance
     }

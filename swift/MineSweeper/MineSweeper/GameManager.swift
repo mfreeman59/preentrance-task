@@ -33,9 +33,13 @@ class GameManager: SquareDelegate {
   マスの初期化
   */
   func initButtleField() {
-    let setting = GameData.sharedInstance.setting;
+    let gameData = GameData.sharedInstance
+    let setting = gameData.setting;
+    var squares = gameData.squares
     
     for i in 0..<setting.fieldWidth {
+      var squareRow = [Square]()
+      
       for j in 0..<setting.fieldHeight {
         let btn = Square(position: (i, j))
         btn.delegate = self
@@ -47,8 +51,15 @@ class GameManager: SquareDelegate {
           CGFloat(setting.squareSize),
           CGFloat(setting.squareSize)
         )
+        // 位置情報とともにマスの情報を保存
+        squareRow.append(btn)
       }
+      
+      // 各行の情報を格納
+      squares.append(squareRow)
     }
+    
+    gameData.squares = squares
   }
 
   /**

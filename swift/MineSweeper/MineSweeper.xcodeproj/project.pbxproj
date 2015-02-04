@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40BC1A7E6F2A00E677EB /* GameResult.swift */; };
+		E42B40BF1A812D1F00E677EB /* ContentJudge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40BE1A812D1F00E677EB /* ContentJudge.swift */; };
+		E42B40C11A812FD200E677EB /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40C01A812FD200E677EB /* ContentType.swift */; };
 		E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC80D1A7E585A00CE796A /* TapMode.swift */; };
 		E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC8101A7E65E900CE796A /* GameManager.swift */; };
 		E491D2D41A7DFDAB009CDC86 /* BattleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E491D2D31A7DFDAB009CDC86 /* BattleField.swift */; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		E42B40BC1A7E6F2A00E677EB /* GameResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		E42B40BE1A812D1F00E677EB /* ContentJudge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentJudge.swift; sourceTree = "<group>"; };
+		E42B40C01A812FD200E677EB /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		E45BC80D1A7E585A00CE796A /* TapMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapMode.swift; sourceTree = "<group>"; };
 		E45BC8101A7E65E900CE796A /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		E491D2D31A7DFDAB009CDC86 /* BattleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleField.swift; sourceTree = "<group>"; };
@@ -70,13 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E45BC80C1A7E583500CE796A /* enum */ = {
+		E45BC80C1A7E583500CE796A /* Enum */ = {
 			isa = PBXGroup;
 			children = (
 				E45BC80D1A7E585A00CE796A /* TapMode.swift */,
 				E42B40BC1A7E6F2A00E677EB /* GameResult.swift */,
+				E42B40C01A812FD200E677EB /* ContentType.swift */,
 			);
-			name = enum;
+			name = Enum;
 			sourceTree = "<group>";
 		};
 		E4B4D4841A6BF94E00C48448 = {
@@ -100,7 +105,7 @@
 		E4B4D48F1A6BF94E00C48448 /* MineSweeper */ = {
 			isa = PBXGroup;
 			children = (
-				E45BC80C1A7E583500CE796A /* enum */,
+				E45BC80C1A7E583500CE796A /* Enum */,
 				E4B4D4921A6BF94E00C48448 /* AppDelegate.swift */,
 				E4B4D4941A6BF94E00C48448 /* ViewController.swift */,
 				E4B4D4961A6BF94E00C48448 /* Main.storyboard */,
@@ -112,6 +117,7 @@
 				E491D2D31A7DFDAB009CDC86 /* BattleField.swift */,
 				E4A1568F1A7E139C001CAF88 /* Square.swift */,
 				E45BC8101A7E65E900CE796A /* GameManager.swift */,
+				E42B40BE1A812D1F00E677EB /* ContentJudge.swift */,
 			);
 			path = MineSweeper;
 			sourceTree = "<group>";
@@ -243,9 +249,11 @@
 			files = (
 				E4B4D4951A6BF94E00C48448 /* ViewController.swift in Sources */,
 				E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */,
+				E42B40C11A812FD200E677EB /* ContentType.swift in Sources */,
 				E4B4D4B91A7015CD00C48448 /* Rule.swift in Sources */,
 				E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */,
 				E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */,
+				E42B40BF1A812D1F00E677EB /* ContentJudge.swift in Sources */,
 				E4A156901A7E139C001CAF88 /* Square.swift in Sources */,
 				E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */,
 				E491D2D41A7DFDAB009CDC86 /* BattleField.swift in Sources */,

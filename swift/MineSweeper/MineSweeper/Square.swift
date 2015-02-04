@@ -96,7 +96,7 @@ class Square : UIImageView {
   }
   
   
-  
+  // TODO: 各Stateを個々のファイルに分ける
   /**
   *  爆弾でなく、かつ開いていないマスのStateクラス
   */
@@ -109,7 +109,7 @@ class Square : UIImageView {
     }
     
     /**
-    ボタンを押した画像に変更
+    ボタンを押した画像に変更。
     
     :param: square マスのインスタンス
     */
@@ -119,6 +119,8 @@ class Square : UIImageView {
     
     private func doTouchUp(square: Square) {
       square.image = UIImage(named: "btn")
+      
+      
     }
   }
   
