@@ -80,12 +80,14 @@ class GameData {
     /**
     *  フィールドの1辺の長さ
     */
-    var sideLength: Int
+    let sideLength: Int
     
     /**
     *  マスの数
     */
-    let squareCount: Int
+    var squareCount: Int {
+      return fieldWidth * fieldHeight
+    }
     
     /**
     *  マスのサイズ
@@ -94,7 +96,6 @@ class GameData {
     
     private init() {
       self.unsetBombCount = bombCount
-      self.squareCount = fieldWidth * fieldHeight
       self.sideLength = squareSize * fieldWidth
     }
     

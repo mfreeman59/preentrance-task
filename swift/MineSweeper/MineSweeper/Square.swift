@@ -105,18 +105,17 @@ class Square : UIImageView {
   :returns: 爆弾をセットするときはtrueを返す
   */
   func canSetBomb() -> Bool {
-    let randNum = Int(arc4random() % 2)
     let setting = GameData.sharedInstance.setting
     let unsetBombCount = setting.unsetBombCount
+    let shouldHaveBomb = Int(arc4random() % UInt32(setting.squareCount)) <= setting.bombCount
     
-    if randNum == 0 && 0 < unsetBombCount {
+    if shouldHaveBomb && 0 < unsetBombCount {
       setting.unsetBombCount--
       return true
     } else {
       return false
     }
   }
-  
   
   /**
   *  爆弾でなく、かつ開いていないマスのStateクラス

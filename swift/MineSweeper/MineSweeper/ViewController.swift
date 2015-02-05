@@ -28,7 +28,7 @@ class ViewController: UIViewController, GameManagerDelegate {
     
     fieldWidth?.text = value.description
     
-    gameManager.restartGame()
+    gameManager.resetGame()
   }
   
   @IBAction func changeFieldHeight(sender: UIStepper) {
@@ -36,7 +36,7 @@ class ViewController: UIViewController, GameManagerDelegate {
     gameData.setting.fieldHeight = value
     fieldHeight?.text = value.description
 
-    gameManager.restartGame()
+    gameManager.resetGame()
   }
   
   @IBAction func changeBombCount(sender: UIStepper) {
@@ -44,7 +44,7 @@ class ViewController: UIViewController, GameManagerDelegate {
     gameData.setting.bombCount = value
     bombCount?.text = value.description
     
-    gameManager.restartGame()
+    gameManager.resetGame()
   }
 
   let gameManager = GameManager.sharedInstance
@@ -68,8 +68,8 @@ class ViewController: UIViewController, GameManagerDelegate {
   /**
   ゲームを初期化する
   */
-  @IBAction func restartGame() {
-    gameManager.restartGame()
+  @IBAction func resetGame() {
+    gameManager.resetGame()
   }
   
 }

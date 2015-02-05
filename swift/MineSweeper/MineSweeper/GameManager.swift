@@ -41,6 +41,9 @@ class GameManager {
   マスの初期化
   */
   func initButtleField() {
+    
+    println("------------フィールド初期化------------")
+    
     let gameData = GameData.sharedInstance
     let setting = gameData.setting
     var squares = gameData.squares
@@ -72,6 +75,12 @@ class GameManager {
     }
     
     gameData.squares = squares
+    
+    // 爆弾をすべて使わなかった場合、もう一度init
+    if setting.unsetBombCount != 0 {
+      println("未設定爆弾あり。再読み込み。")
+      resetGame()
+    }
   }
   /**
   *  ゲームが終了したか判定するメソッド
@@ -120,7 +129,7 @@ class GameManager {
   /**
   *  ゲームを最初からやり直すときに呼ぶメソッド
   */
-  func restartGame() {
+  func resetGame() {
     // ゲーム終了画面を消す
     delegate?.resultView?.hidden = true
     // マスを一旦すべて削除
