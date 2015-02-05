@@ -29,6 +29,12 @@ class GameManager {
     return Static.instance
   }
   
+  // 定数
+  struct Const {
+    static let txtGameOver = "GAME OVER"
+    static let txtGameClear = "GAME CLEAR"
+  }
+  
   private init() {}
   
   /**
@@ -105,9 +111,9 @@ class GameManager {
     delegate?.resultView?.hidden = false
     
     if gameResult == GameResult.Clear {
-      delegate?.resultText?.text = "GAME CLEAR"
+      delegate?.resultText?.text = Const.txtGameClear
     } else {
-      delegate?.resultText?.text = "GAME OVER"
+      delegate?.resultText?.text = Const.txtGameOver
     }
   }
   

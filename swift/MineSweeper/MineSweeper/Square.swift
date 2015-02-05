@@ -47,7 +47,15 @@ class Square : UIImageView {
   var isBomb = false
   /// フィールド上の位置
   let position : (Int, Int)
-  
+
+  // 定数
+  struct Const {
+    static let imgBtnName = "btn"
+    static let imgBtnOverName = "btn_over"
+    static let imgBombName = "bomb"
+    static let imgFlagName = "flag"
+  }
+    
   /**
   イニシャライザ。ここで爆弾を保持するかどうかを決定
   
@@ -58,7 +66,7 @@ class Square : UIImageView {
     self.position = position
 
     // スーパークラスのイニシャライザ
-    super.init(image: UIImage(named: "btn"))
+    super.init(image: UIImage(named: Const.imgBtnName))
     self.userInteractionEnabled = true
 
     // 爆弾をセット
@@ -130,7 +138,7 @@ class Square : UIImageView {
     :param: square マスのインスタンス
     */
     private func doTouchDown(square: Square) {
-      square.image = UIImage(named: "btn_over")
+      square.image = UIImage(named: Const.imgBtnOverName)
     }
     
     private func doTouchUp(square: Square) {
@@ -138,7 +146,7 @@ class Square : UIImageView {
       
       if tapMode == TapMode.CheckBomb {
         // フラグを立てる
-        square.image = UIImage(named: "flag")
+        square.image = UIImage(named: Const.imgFlagName)
         square.state = FlagState.sharedInstance
         GameData.sharedInstance.flagUnused--
       } else {
@@ -193,7 +201,7 @@ class Square : UIImageView {
     }
     
     private func doTouchDown(square: Square) {
-      square.image = UIImage(named: "btn_over")
+      square.image = UIImage(named: Const.imgBtnOverName)
     }
     
     private func doTouchUp(square: Square) {
@@ -201,7 +209,7 @@ class Square : UIImageView {
       let gameData = GameData.sharedInstance
       
       if tapMode == TapMode.CheckBomb {
-        square.image = UIImage(named: "flag")
+        square.image = UIImage(named: Const.imgFlagName)
         square.state = FlagState.sharedInstance
         
         // クリア判定のための数値の変更
@@ -214,7 +222,7 @@ class Square : UIImageView {
         // クリア判定
         GameManager.sharedInstance.judgeGameIsCleared()
       } else {
-        square.image = UIImage(named: "bomb")
+        square.image = UIImage(named: Const.imgBombName)
         GameManager.sharedInstance.finishGame(GameResult.Gameover)
         println("-----------GAMEOVER-----------")
       }
@@ -243,7 +251,7 @@ class Square : UIImageView {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
-        square.image = UIImage(named: "btn")
+        square.image = UIImage(named: Const.imgBtnName)
 
         if square.isBomb {
           square.state = BombState.sharedInstance
