@@ -11,7 +11,7 @@ import UIKit
 /**
 *  マスのStateの抽象クラス
 */
-private class SquareState {
+class SquareState {
   /**
   タップ押下時のイベントリスナー
   
@@ -56,7 +56,7 @@ private class SquareState {
 class Square : UIImageView {
 
   /// マスの状態を保持するプロパティ
-  private var state : SquareState = EmptyState.sharedInstance
+  var state : SquareState = EmptyState.sharedInstance
   /// 旗を立てられても（Stateが変わっても）保持する爆弾フラグ
   var isBomb = false
   /// フィールド上の位置
@@ -151,14 +151,16 @@ class Square : UIImageView {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
+        // フラグを立てる
         square.image = UIImage(named: "flag")
         square.state = FlagState.sharedInstance
         GameData.sharedInstance.flagUnused--
       } else {
+        // 周囲の爆弾の数を計算し、数を表示
+        square.state = OpenState.sharedInstance
         let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
         let imageName: String = ContentType.getImageName(bombCount)
         square.image = UIImage(named: imageName)
-        square.state = OpenState.sharedInstance
       }
 
       judgeGameIsCleared()

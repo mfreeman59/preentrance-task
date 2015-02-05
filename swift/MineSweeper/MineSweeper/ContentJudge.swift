@@ -43,6 +43,22 @@ class ContentJudge {
       }
     }
     
+    println("\(square.position)、爆弾\(bombCount)個周囲にあり。")
+    
+    // 「空」だった場合は、隣接マスを自動開放
+    if bombCount == 0 {
+      println("\(square.position)が「空」。自動開放実行。")
+      
+      for position in squarePositions {
+        println("\(position)：\(square.position)による自動開放")
+        
+        let targetSquare: Square = GameData.sharedInstance.squares[position.0][position.1]
+        targetSquare.state.doTouchUp(targetSquare)
+      }
+    }
+    
+    println("\(square.position)、自動開放せず。")
+    
     return ContentType(rawValue: bombCount)!
   }
   
