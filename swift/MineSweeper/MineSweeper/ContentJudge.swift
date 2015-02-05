@@ -35,6 +35,7 @@ class ContentJudge {
     let column = square.position.1
     let squarePositions = getSurroundSquarePositions(square)
     
+    // 爆弾のカウント
     for position in squarePositions {
       let targetSquare: Square = GameData.sharedInstance.squares[position.0][position.1]
 

@@ -35,9 +35,8 @@ protocol SquareState {
   
 }
 
-// TODO: このクラス、全体的にリファクタする
 /**
-*  マスのクラス
+*  マスに関わるロジックが書いてあるクラス
 */
 class Square : UIImageView {
 
@@ -119,8 +118,6 @@ class Square : UIImageView {
   }
   
   
-  // TODO: 地雷チェックのところの分岐も親クラスにまとめたい
-  // TODO: Imageファイル名のハードコーディングをどうにかする
   /**
   *  爆弾でなく、かつ開いていないマスのStateクラス
   */

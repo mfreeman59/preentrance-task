@@ -103,7 +103,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="5" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-s3-658">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="5" maximumValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-s3-658">
                                         <rect key="frame" x="140" y="10" width="94" height="29"/>
                                         <connections>
                                             <action selector="changeBombCount:" destination="BYZ-38-t0r" eventType="valueChanged" id="3jd-W9-rAa"/>
