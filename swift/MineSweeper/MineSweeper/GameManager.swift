@@ -29,15 +29,29 @@ class GameManager {
     return Static.instance
   }
   
+  // 定数
+  struct Const {
+    static let txtGameOver = "GAME OVER"
+    static let txtGameClear = "GAME CLEAR"
+  }
+  
   private init() {}
   
   /**
   マスの初期化
   */
   func initButtleField() {
+    
+    println("------------フィールド初期化------------")
+    
     let gameData = GameData.sharedInstance
-    let setting = gameData.setting;
+    let setting = gameData.setting
     var squares = gameData.squares
+    
+    // マスの数に合わせて、マスの大きさを決定
+    let sideLengthX = setting.sideLength / setting.fieldWidth
+    let sideLengthY = setting.sideLength / setting.fieldHeight
+    setting.squareSize = min(sideLengthX, sideLengthY)
     
     for i in 0..<setting.fieldWidth {
       var squareRow = [Square]()
@@ -61,6 +75,40 @@ class GameManager {
     }
     
     gameData.squares = squares
+    
+    // 爆弾をすべて使わなかった場合、もう一度init
+    if setting.unsetBombCount != 0 {
+      println("未設定爆弾あり。再読み込み。")
+      resetGame()
+    }
+  }
+  /**
+  *  ゲームが終了したか判定するメソッド
+  */
+  func judgeGameIsCleared() {
+    let gameData = GameData.sharedInstance
+    let flagUnused = gameData.flagUnused
+    let bombUnflagged = gameData.bombUnflagged
+    
+    println("残りの未使用フラグ数： \(flagUnused)")
+    println("残りの爆弾の数： \(bombUnflagged)")
+    
+    // すべてのマスが開き、爆弾もぴったりフラグが立てられた場合
+    if flagUnused == 0 && bombUnflagged == 0 {
+      // 自動開放時に「旗」が立たない設定
+      GameData.sharedInstance.tapMode = TapMode.Open
+      
+      // 開いていないマスを自動開放
+      for squareRow in gameData.squares {
+        for square in squareRow {
+          if square.state.getType(square) == SquareStateType.Empty {
+            square.state.doTouchUp(square)
+          }
+        }
+      }
+      // 終了ロジック
+      GameManager.sharedInstance.finishGame(GameResult.Clear)
+    }
   }
 
   /**
@@ -70,18 +118,27 @@ class GameManager {
   */
   func finishGame(gameResult: GameResult) {
     delegate?.resultView?.hidden = false
+    
+    if gameResult == GameResult.Clear {
+      delegate?.resultText?.text = Const.txtGameClear
+    } else {
+      delegate?.resultText?.text = Const.txtGameOver
+    }
   }
   
   /**
   *  ゲームを最初からやり直すときに呼ぶメソッド
   */
-  func restartGame() {
+  func resetGame() {
     // ゲーム終了画面を消す
     delegate?.resultView?.hidden = true
     // マスを一旦すべて削除
     for square in delegate?.buttleField?.subviews as [UIView] {
       square.removeFromSuperview()
     }
+    // タップモード初期化
+    GameData.sharedInstance.tapMode = TapMode.Open
+    delegate?.switchTapMode?.selectedSegmentIndex = TapMode.Open.rawValue
     // ゲームデータの初期化
     GameData.sharedInstance.resetAllData()
     // 初期化

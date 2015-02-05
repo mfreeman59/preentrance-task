@@ -11,57 +11,50 @@ import UIKit
 /**
 *  マスのStateの抽象クラス
 */
-private class SquareState {
+protocol SquareState {
   /**
   タップ押下時のイベントリスナー
   
   :param: square マスのインスタンス
   */
-  func doTouchDown(square: Square) {
-    fatalError("must be overridedn")
-  }
+  func doTouchDown(square: Square)
   
   /**
   タップを離した時のイベントリスナー
   
   :param: square マスのインスタンス
   */
-  func doTouchUp(square: Square) {
-    fatalError("must be overridedn")
-  }
-  
+  func doTouchUp(square: Square)
+
   /**
-  *  ゲームが終了したか判定するメソッド
+  Stateをenumで返す
+  
+  :param: square マスのインスタンス
   */
-  func judgeGameIsCleared() {
-    let gameData = GameData.sharedInstance
-    let flagUnused = gameData.flagUnused
-    let bombUnflagged = gameData.bombUnflagged
-    
-    println("残りの未使用フラグ数： \(flagUnused)")
-    println("残りの爆弾の数： \(bombUnflagged)")
-    
-    // TODO: クリア時にまだ開いていないマスは自動的に開ける
-    // すべてのマスが開き、爆弾もぴったりフラグが立てられた場合
-    if flagUnused == 0 && bombUnflagged == 0 {
-      GameManager.sharedInstance.finishGame(GameResult.Clear)
-    }
-  }
+  func getType(square: Square) -> SquareStateType
+  
 }
 
-// TODO: このクラス、全体的にリファクタする
 /**
-*  マスのクラス
+*  マスに関わるロジックが書いてあるクラス
 */
 class Square : UIImageView {
 
   /// マスの状態を保持するプロパティ
-  private var state : SquareState = EmptyState.sharedInstance
+  var state : SquareState = EmptyState.sharedInstance
   /// 旗を立てられても（Stateが変わっても）保持する爆弾フラグ
   var isBomb = false
   /// フィールド上の位置
   let position : (Int, Int)
-  
+
+  // 定数
+  struct Const {
+    static let imgBtnName = "btn"
+    static let imgBtnOverName = "btn_over"
+    static let imgBombName = "bomb"
+    static let imgFlagName = "flag"
+  }
+    
   /**
   イニシャライザ。ここで爆弾を保持するかどうかを決定
   
@@ -72,7 +65,7 @@ class Square : UIImageView {
     self.position = position
 
     // スーパークラスのイニシャライザ
-    super.init(image: UIImage(named: "btn"))
+    super.init(image: UIImage(named: Const.imgBtnName))
     self.userInteractionEnabled = true
 
     // 爆弾をセット
@@ -112,11 +105,11 @@ class Square : UIImageView {
   :returns: 爆弾をセットするときはtrueを返す
   */
   func canSetBomb() -> Bool {
-    let randNum = Int(arc4random() % 2)
     let setting = GameData.sharedInstance.setting
     let unsetBombCount = setting.unsetBombCount
+    let shouldHaveBomb = Int(arc4random() % UInt32(setting.squareCount)) <= setting.bombCount
     
-    if randNum == 0 && 0 < unsetBombCount {
+    if shouldHaveBomb && 0 < unsetBombCount {
       setting.unsetBombCount--
       return true
     } else {
@@ -124,9 +117,6 @@ class Square : UIImageView {
     }
   }
   
-  
-  // TODO: 地雷チェックのところの分岐も親クラスにまとめたい
-  // TODO: Imageファイル名のハードコーディングをどうにかする
   /**
   *  爆弾でなく、かつ開いていないマスのStateクラス
   */
@@ -143,25 +133,31 @@ class Square : UIImageView {
     
     :param: square マスのインスタンス
     */
-    private override func doTouchDown(square: Square) {
-      square.image = UIImage(named: "btn_over")
+    private func doTouchDown(square: Square) {
+      square.image = UIImage(named: Const.imgBtnOverName)
     }
     
-    private override func doTouchUp(square: Square) {
+    private func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
-        square.image = UIImage(named: "flag")
+        // フラグを立てる
+        square.image = UIImage(named: Const.imgFlagName)
         square.state = FlagState.sharedInstance
         GameData.sharedInstance.flagUnused--
       } else {
+        // 周囲の爆弾の数を計算し、数を表示
+        square.state = OpenState.sharedInstance
         let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
         let imageName: String = ContentType.getImageName(bombCount)
         square.image = UIImage(named: imageName)
-        square.state = OpenState.sharedInstance
       }
 
-      judgeGameIsCleared()
+      GameManager.sharedInstance.judgeGameIsCleared()
+    }
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Empty
     }
   }
   
@@ -181,8 +177,12 @@ class Square : UIImageView {
     
     :param: square マスのインスタンス
     */
-    private override func doTouchDown(square: Square) {}
-    private override func doTouchUp(square: Square) {}
+    private func doTouchDown(square: Square) {}
+    private func doTouchUp(square: Square) {}
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Open
+    }
   }
   
   /**
@@ -196,16 +196,16 @@ class Square : UIImageView {
       return Static.instance
     }
     
-    private override func doTouchDown(square: Square) {
-      square.image = UIImage(named: "btn_over")
+    private func doTouchDown(square: Square) {
+      square.image = UIImage(named: Const.imgBtnOverName)
     }
     
-    private override func doTouchUp(square: Square) {
+    private func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       let gameData = GameData.sharedInstance
       
       if tapMode == TapMode.CheckBomb {
-        square.image = UIImage(named: "flag")
+        square.image = UIImage(named: Const.imgFlagName)
         square.state = FlagState.sharedInstance
         
         // クリア判定のための数値の変更
@@ -216,12 +216,16 @@ class Square : UIImageView {
         gameData.flagUnused--
         
         // クリア判定
-        judgeGameIsCleared()
+        GameManager.sharedInstance.judgeGameIsCleared()
       } else {
-        square.image = UIImage(named: "bomb")
+        square.image = UIImage(named: Const.imgBombName)
         GameManager.sharedInstance.finishGame(GameResult.Gameover)
         println("-----------GAMEOVER-----------")
       }
+    }
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Bomb
     }
   }
   
@@ -236,14 +240,14 @@ class Square : UIImageView {
       return Static.instance
     }
     
-    private override func doTouchDown(square: Square) {}
+    private func doTouchDown(square: Square) {}
     
-    private override func doTouchUp(square: Square) {
+    private func doTouchUp(square: Square) {
       let gameData = GameData.sharedInstance
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
-        square.image = UIImage(named: "btn")
+        square.image = UIImage(named: Const.imgBtnName)
 
         if square.isBomb {
           square.state = BombState.sharedInstance
@@ -255,6 +259,10 @@ class Square : UIImageView {
         
         gameData.flagUnused++
       }
+    }
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Flag
     }
   }
 }

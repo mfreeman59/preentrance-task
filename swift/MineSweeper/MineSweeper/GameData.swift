@@ -60,7 +60,7 @@ class GameData {
     *  合計の爆弾の数
     *　初期値：5
     */
-    let bombCount: Int = 5
+    var bombCount: Int = 5
     
     /**
     *  マスの初期化時の残り爆弾数のカウント用
@@ -68,30 +68,35 @@ class GameData {
     var unsetBombCount: Int
     
     /**
-    *  フィールドの横幅
-    *　初期値：5
+    *  フィールドの横のマスの数
     */
-    let fieldWidth: Int = 5
+    var fieldWidth: Int = 5
     
     /**
-    *  フィールドの縦幅
-    *　初期値：5
+    *  フィールドの縦のマスの数
     */
-    let fieldHeight: Int = 5
+    var fieldHeight: Int = 5
+    
+    /**
+    *  フィールドの1辺の長さ
+    */
+    let sideLength: Int
     
     /**
     *  マスの数
     */
-    let squareCount: Int
+    var squareCount: Int {
+      return fieldWidth * fieldHeight
+    }
     
     /**
     *  マスのサイズ
     */
-    let squareSize: Int = 64
+    var squareSize: Int = 60
     
-    init() {
+    private init() {
       self.unsetBombCount = bombCount
-      self.squareCount = fieldWidth * fieldHeight
+      self.sideLength = squareSize * fieldWidth
     }
     
     /// シングルトン取得
