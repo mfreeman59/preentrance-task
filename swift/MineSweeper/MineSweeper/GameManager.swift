@@ -36,7 +36,7 @@ class GameManager {
   */
   func initButtleField() {
     let gameData = GameData.sharedInstance
-    let setting = gameData.setting;
+    let setting = gameData.setting
     var squares = gameData.squares
     
     for i in 0..<setting.fieldWidth {

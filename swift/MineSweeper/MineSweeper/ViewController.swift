@@ -14,12 +14,41 @@ class ViewController: UIViewController, GameManagerDelegate {
   @IBOutlet var switchTapMode:UISegmentedControl?
   @IBOutlet var resultView:UIView?
   @IBOutlet var resultText:UILabel?
+  @IBOutlet var fieldWidth:UILabel?
+  @IBOutlet var fieldHeight:UILabel?
+  @IBOutlet var bombCount:UILabel?
 
   @IBAction func segmentChange(sender: UISegmentedControl) {
     GameData.sharedInstance.tapMode = TapMode(rawValue: sender.selectedSegmentIndex)!
   }
+  
+  @IBAction func changeFieldWidth(sender: UIStepper) {
+    let value = Int(sender.value)
+    gameData.setting.fieldWidth = value
+    
+    fieldWidth?.text = value.description
+    
+    gameManager.restartGame()
+  }
+  
+  @IBAction func changeFieldHeight(sender: UIStepper) {
+    let value = Int(sender.value)
+    gameData.setting.fieldHeight = value
+    fieldHeight?.text = value.description
 
-  let gameManager: GameManager = GameManager.sharedInstance
+    gameManager.restartGame()
+  }
+  
+  @IBAction func changeBombCount(sender: UIStepper) {
+    let value = Int(sender.value)
+    gameData.setting.bombCount = value
+    bombCount?.text = value.description
+    
+    gameManager.restartGame()
+  }
+
+  let gameManager = GameManager.sharedInstance
+  let gameData = GameData.sharedInstance
   
   override func viewDidLoad() {
     super.viewDidLoad()
