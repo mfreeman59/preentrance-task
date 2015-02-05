@@ -18,15 +18,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDB-rC-aj8" userLabel="buttle_field">
-                                <rect key="frame" x="140" y="90" width="320" height="320"/>
+                                <rect key="frame" x="150" y="60" width="300" height="300"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="4Q3-00-qnV"/>
-                                    <constraint firstAttribute="width" constant="320" id="968-dr-1x9"/>
+                                    <constraint firstAttribute="height" constant="300" id="4Q3-00-qnV"/>
+                                    <constraint firstAttribute="width" constant="300" id="968-dr-1x9"/>
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Efj-uo-UxV">
-                                <rect key="frame" x="230" y="425" width="140" height="29"/>
+                                <rect key="frame" x="230" y="375" width="140" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="dTa-hQ-dpR"/>
                                 </constraints>
@@ -39,7 +39,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7b-Xb-S5S" userLabel="FieldHeight Value">
-                                <rect key="frame" x="150" y="470" width="300" height="50"/>
+                                <rect key="frame" x="150" y="413" width="300" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="縦" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FX-PV-i66">
                                         <rect key="frame" x="25" y="10" width="60" height="30"/>
@@ -65,7 +65,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipr-2T-PRm" userLabel="FieldWidth Value">
-                                <rect key="frame" x="150" y="520" width="300" height="50"/>
+                                <rect key="frame" x="150" y="463" width="300" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="横" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jee-qD-hex">
                                         <rect key="frame" x="25" y="10" width="60" height="30"/>
@@ -91,7 +91,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFH-5D-VJ7" userLabel="Bomb Count">
-                                <rect key="frame" x="150" y="570" width="300" height="50"/>
+                                <rect key="frame" x="150" y="513" width="300" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="爆弾数" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLS-uQ-prB">
                                         <rect key="frame" x="25" y="10" width="60" height="30"/>
@@ -168,11 +168,11 @@
                             <constraint firstAttribute="trailing" secondItem="Oiw-5v-SoV" secondAttribute="trailing" id="XJE-Ie-OWc"/>
                             <constraint firstAttribute="centerX" secondItem="Ipr-2T-PRm" secondAttribute="centerX" id="XW9-5y-ZW2"/>
                             <constraint firstItem="Oiw-5v-SoV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eeY-Ur-NmO"/>
-                            <constraint firstItem="jDB-rC-aj8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="90" id="iwk-Dj-swZ"/>
+                            <constraint firstItem="jDB-rC-aj8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="60" id="iwk-Dj-swZ"/>
                             <constraint firstItem="jDB-rC-aj8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="jZ9-0e-yUp"/>
                             <constraint firstAttribute="centerX" secondItem="Efj-uo-UxV" secondAttribute="centerX" id="lEO-2m-XYl"/>
                             <constraint firstItem="Efj-uo-UxV" firstAttribute="top" secondItem="jDB-rC-aj8" secondAttribute="bottom" constant="15" id="m7T-h3-iAU"/>
-                            <constraint firstItem="E7b-Xb-S5S" firstAttribute="top" secondItem="Efj-uo-UxV" secondAttribute="bottom" constant="17" id="pNQ-HZ-zqT"/>
+                            <constraint firstItem="E7b-Xb-S5S" firstAttribute="top" secondItem="Efj-uo-UxV" secondAttribute="bottom" constant="10" id="pNQ-HZ-zqT"/>
                             <constraint firstItem="jDB-rC-aj8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="120" id="q9K-q0-R8N"/>
                             <constraint firstAttribute="trailing" secondItem="Oiw-5v-SoV" secondAttribute="trailing" id="rYg-aq-sDy"/>
                             <constraint firstAttribute="centerX" secondItem="E7b-Xb-S5S" secondAttribute="centerX" id="vTL-rp-GA5"/>

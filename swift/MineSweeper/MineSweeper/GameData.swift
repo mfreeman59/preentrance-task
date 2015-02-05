@@ -92,7 +92,7 @@ class GameData {
     /**
     *  マスのサイズ
     */
-    var squareSize: Int = 64
+    var squareSize: Int = 60
     
     private init() {
       self.unsetBombCount = bombCount
