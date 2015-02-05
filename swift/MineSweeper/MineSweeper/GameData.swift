@@ -71,11 +71,16 @@ class GameData {
     *  フィールドの横のマスの数
     */
     var fieldWidth: Int = 5
-
+    
     /**
     *  フィールドの縦のマスの数
     */
     var fieldHeight: Int = 5
+    
+    /**
+    *  フィールドの1辺の長さ
+    */
+    var sideLength: Int
     
     /**
     *  マスの数
@@ -90,6 +95,7 @@ class GameData {
     private init() {
       self.unsetBombCount = bombCount
       self.squareCount = fieldWidth * fieldHeight
+      self.sideLength = squareSize * fieldWidth
     }
     
     /// シングルトン取得

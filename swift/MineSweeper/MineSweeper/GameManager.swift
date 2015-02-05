@@ -39,6 +39,11 @@ class GameManager {
     let setting = gameData.setting
     var squares = gameData.squares
     
+    // マスの数に合わせて、マスの大きさを決定
+    let sideLengthX = setting.sideLength / setting.fieldWidth
+    let sideLengthY = setting.sideLength / setting.fieldHeight
+    setting.squareSize = min(sideLengthX, sideLengthY)
+    
     for i in 0..<setting.fieldWidth {
       var squareRow = [Square]()
       
