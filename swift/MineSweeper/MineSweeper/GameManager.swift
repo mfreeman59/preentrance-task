@@ -67,6 +67,34 @@ class GameManager {
     
     gameData.squares = squares
   }
+  /**
+  *  ゲームが終了したか判定するメソッド
+  */
+  func judgeGameIsCleared() {
+    let gameData = GameData.sharedInstance
+    let flagUnused = gameData.flagUnused
+    let bombUnflagged = gameData.bombUnflagged
+    
+    println("残りの未使用フラグ数： \(flagUnused)")
+    println("残りの爆弾の数： \(bombUnflagged)")
+    
+    // すべてのマスが開き、爆弾もぴったりフラグが立てられた場合
+    if flagUnused == 0 && bombUnflagged == 0 {
+      // 自動開放時に「旗」が立たない設定
+      GameData.sharedInstance.tapMode = TapMode.Open
+      
+      // 開いていないマスを自動開放
+      for squareRow in gameData.squares {
+        for square in squareRow {
+          if square.state.getType(square) == SquareStateType.Empty {
+            square.state.doTouchUp(square)
+          }
+        }
+      }
+      // 終了ロジック
+      GameManager.sharedInstance.finishGame(GameResult.Clear)
+    }
+  }
 
   /**
   ゲーム終了時の処理メソッド
@@ -93,6 +121,9 @@ class GameManager {
     for square in delegate?.buttleField?.subviews as [UIView] {
       square.removeFromSuperview()
     }
+    // タップモード初期化
+    GameData.sharedInstance.tapMode = TapMode.Open
+    delegate?.switchTapMode?.selectedSegmentIndex = TapMode.Open.rawValue
     // ゲームデータの初期化
     GameData.sharedInstance.resetAllData()
     // 初期化

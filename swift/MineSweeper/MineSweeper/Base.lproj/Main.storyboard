@@ -19,7 +19,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDB-rC-aj8" userLabel="buttle_field">
                                 <rect key="frame" x="140" y="90" width="320" height="320"/>
-                                <color key="backgroundColor" red="0.95265151515151514" green="0.95265151515151514" blue="0.95265151515151514" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="320" id="4Q3-00-qnV"/>
                                     <constraint firstAttribute="width" constant="320" id="968-dr-1x9"/>

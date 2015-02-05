@@ -11,42 +11,28 @@ import UIKit
 /**
 *  マスのStateの抽象クラス
 */
-class SquareState {
+protocol SquareState {
   /**
   タップ押下時のイベントリスナー
   
   :param: square マスのインスタンス
   */
-  func doTouchDown(square: Square) {
-    fatalError("must be overridedn")
-  }
+  func doTouchDown(square: Square)
   
   /**
   タップを離した時のイベントリスナー
   
   :param: square マスのインスタンス
   */
-  func doTouchUp(square: Square) {
-    fatalError("must be overridedn")
-  }
-  
+  func doTouchUp(square: Square)
+
   /**
-  *  ゲームが終了したか判定するメソッド
+  Stateをenumで返す
+  
+  :param: square マスのインスタンス
   */
-  func judgeGameIsCleared() {
-    let gameData = GameData.sharedInstance
-    let flagUnused = gameData.flagUnused
-    let bombUnflagged = gameData.bombUnflagged
-    
-    println("残りの未使用フラグ数： \(flagUnused)")
-    println("残りの爆弾の数： \(bombUnflagged)")
-    
-    // TODO: クリア時にまだ開いていないマスは自動的に開ける
-    // すべてのマスが開き、爆弾もぴったりフラグが立てられた場合
-    if flagUnused == 0 && bombUnflagged == 0 {
-      GameManager.sharedInstance.finishGame(GameResult.Clear)
-    }
-  }
+  func getType(square: Square) -> SquareStateType
+  
 }
 
 // TODO: このクラス、全体的にリファクタする
@@ -143,11 +129,11 @@ class Square : UIImageView {
     
     :param: square マスのインスタンス
     */
-    private override func doTouchDown(square: Square) {
+    private func doTouchDown(square: Square) {
       square.image = UIImage(named: "btn_over")
     }
     
-    private override func doTouchUp(square: Square) {
+    private func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
@@ -163,7 +149,11 @@ class Square : UIImageView {
         square.image = UIImage(named: imageName)
       }
 
-      judgeGameIsCleared()
+      GameManager.sharedInstance.judgeGameIsCleared()
+    }
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Empty
     }
   }
   
@@ -183,8 +173,12 @@ class Square : UIImageView {
     
     :param: square マスのインスタンス
     */
-    private override func doTouchDown(square: Square) {}
-    private override func doTouchUp(square: Square) {}
+    private func doTouchDown(square: Square) {}
+    private func doTouchUp(square: Square) {}
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Open
+    }
   }
   
   /**
@@ -198,11 +192,11 @@ class Square : UIImageView {
       return Static.instance
     }
     
-    private override func doTouchDown(square: Square) {
+    private func doTouchDown(square: Square) {
       square.image = UIImage(named: "btn_over")
     }
     
-    private override func doTouchUp(square: Square) {
+    private func doTouchUp(square: Square) {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       let gameData = GameData.sharedInstance
       
@@ -218,12 +212,16 @@ class Square : UIImageView {
         gameData.flagUnused--
         
         // クリア判定
-        judgeGameIsCleared()
+        GameManager.sharedInstance.judgeGameIsCleared()
       } else {
         square.image = UIImage(named: "bomb")
         GameManager.sharedInstance.finishGame(GameResult.Gameover)
         println("-----------GAMEOVER-----------")
       }
+    }
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Bomb
     }
   }
   
@@ -238,9 +236,9 @@ class Square : UIImageView {
       return Static.instance
     }
     
-    private override func doTouchDown(square: Square) {}
+    private func doTouchDown(square: Square) {}
     
-    private override func doTouchUp(square: Square) {
+    private func doTouchUp(square: Square) {
       let gameData = GameData.sharedInstance
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
@@ -257,6 +255,10 @@ class Square : UIImageView {
         
         gameData.flagUnused++
       }
+    }
+    
+    private func getType(square: Square) -> SquareStateType {
+      return SquareStateType.Flag
     }
   }
 }

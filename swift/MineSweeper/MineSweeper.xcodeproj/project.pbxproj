@@ -12,6 +12,7 @@
 		E42B40C11A812FD200E677EB /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40C01A812FD200E677EB /* ContentType.swift */; };
 		E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC80D1A7E585A00CE796A /* TapMode.swift */; };
 		E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC8101A7E65E900CE796A /* GameManager.swift */; };
+		E471C9191A83B2D500FC9BD9 /* SquareStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E471C9181A83B2D500FC9BD9 /* SquareStateType.swift */; };
 		E4A156901A7E139C001CAF88 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1568F1A7E139C001CAF88 /* Square.swift */; };
 		E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4921A6BF94E00C48448 /* AppDelegate.swift */; };
 		E4B4D4951A6BF94E00C48448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4D4941A6BF94E00C48448 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 		E42B40C01A812FD200E677EB /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		E45BC80D1A7E585A00CE796A /* TapMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapMode.swift; sourceTree = "<group>"; };
 		E45BC8101A7E65E900CE796A /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		E471C9181A83B2D500FC9BD9 /* SquareStateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareStateType.swift; sourceTree = "<group>"; };
 		E4A1568F1A7E139C001CAF88 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		E4B4D48D1A6BF94E00C48448 /* MineSweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineSweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B4D4911A6BF94E00C48448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				E45BC80D1A7E585A00CE796A /* TapMode.swift */,
 				E42B40BC1A7E6F2A00E677EB /* GameResult.swift */,
 				E42B40C01A812FD200E677EB /* ContentType.swift */,
+				E471C9181A83B2D500FC9BD9 /* SquareStateType.swift */,
 			);
 			name = Enum;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			files = (
 				E4B4D4951A6BF94E00C48448 /* ViewController.swift in Sources */,
 				E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */,
+				E471C9191A83B2D500FC9BD9 /* SquareStateType.swift in Sources */,
 				E42B40C11A812FD200E677EB /* ContentType.swift in Sources */,
 				E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */,
 				E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */,
