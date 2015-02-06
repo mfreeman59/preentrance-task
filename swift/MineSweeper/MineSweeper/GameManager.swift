@@ -53,6 +53,7 @@ class GameManager {
     let sideLengthY = setting.sideLength / setting.fieldHeight
     setting.squareSize = min(sideLengthX, sideLengthY)
     
+    // ボタンの初期化＆位置のセット
     for i in 0..<setting.fieldWidth {
       var squareRow = [Square]()
       
@@ -74,14 +75,44 @@ class GameManager {
       squares.append(squareRow)
     }
     
-    gameData.squares = squares
-    
     // 爆弾をすべて使わなかった場合、もう一度init
     if setting.unsetBombCount != 0 {
       println("未設定爆弾あり。再読み込み。")
       resetGame()
+      return
+    }
+
+    // 各マスの周囲にある爆弾数を計算
+    gameData.squares = squares
+    countSurroundBombs(&gameData.squares)
+  }
+
+  /**
+  各マスの周囲の爆弾数を計算
+  
+  :param: squares フィールド上にあるマスの２重配列
+  */
+  private func countSurroundBombs(inout squares: [[Square]]) {
+
+    for squareRow in squares {
+      for square in squareRow {
+        // 一つ一つのマスの処理
+        let surroundSquarePositions: [(Int, Int)] = square.getSurroundSquarePositions()
+        var bombCount: Int = 0
+        
+        for position in surroundSquarePositions {
+          let targetSquare: Square = GameData.sharedInstance.squares[position.0][position.1]
+          
+          if targetSquare.isBomb {
+            bombCount++
+          }
+        }
+        
+        square.bombCount = bombCount
+      }
     }
   }
+
   /**
   *  ゲームが終了したか判定するメソッド
   */

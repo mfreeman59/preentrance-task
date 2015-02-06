@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40BC1A7E6F2A00E677EB /* GameResult.swift */; };
-		E42B40BF1A812D1F00E677EB /* ContentJudge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40BE1A812D1F00E677EB /* ContentJudge.swift */; };
 		E42B40C11A812FD200E677EB /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B40C01A812FD200E677EB /* ContentType.swift */; };
 		E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC80D1A7E585A00CE796A /* TapMode.swift */; };
 		E45BC8111A7E65E900CE796A /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BC8101A7E65E900CE796A /* GameManager.swift */; };
@@ -35,7 +34,6 @@
 
 /* Begin PBXFileReference section */
 		E42B40BC1A7E6F2A00E677EB /* GameResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
-		E42B40BE1A812D1F00E677EB /* ContentJudge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentJudge.swift; sourceTree = "<group>"; };
 		E42B40C01A812FD200E677EB /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		E45BC80D1A7E585A00CE796A /* TapMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapMode.swift; sourceTree = "<group>"; };
 		E45BC8101A7E65E900CE796A /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 				E4B4D4B21A70157900C48448 /* GameData.swift */,
 				E4A1568F1A7E139C001CAF88 /* Square.swift */,
 				E45BC8101A7E65E900CE796A /* GameManager.swift */,
-				E42B40BE1A812D1F00E677EB /* ContentJudge.swift */,
 			);
 			path = MineSweeper;
 			sourceTree = "<group>";
@@ -250,7 +247,6 @@
 				E42B40C11A812FD200E677EB /* ContentType.swift in Sources */,
 				E45BC80E1A7E585A00CE796A /* TapMode.swift in Sources */,
 				E42B40BD1A7E6F2A00E677EB /* GameResult.swift in Sources */,
-				E42B40BF1A812D1F00E677EB /* ContentJudge.swift in Sources */,
 				E4A156901A7E139C001CAF88 /* Square.swift in Sources */,
 				E4B4D4931A6BF94E00C48448 /* AppDelegate.swift in Sources */,
 				E4B4D4B31A70157900C48448 /* GameData.swift in Sources */,
