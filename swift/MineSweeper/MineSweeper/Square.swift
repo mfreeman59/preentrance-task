@@ -46,6 +46,8 @@ class Square : UIImageView {
   var isBomb = false
   /// フィールド上の位置
   let position : (Int, Int)
+  /// 周囲の爆弾の数
+  var bombCount: Int = 0
 
   // 定数
   struct Const {
@@ -118,6 +120,36 @@ class Square : UIImageView {
   }
   
   /**
+  検索対象のマスの位置の配列を返す
+  
+  :param: square 起点となるマス
+  
+  :returns: まわりのマスの位置
+  */
+  func getSurroundSquarePositions() -> [(Int, Int)] {
+    let row = self.position.0
+    let column = self.position.1
+    
+    // 一旦ありうるポジションを全て代入
+    var squarePositions = [
+      (row - 1, column - 1), (row - 1, column), (row - 1, column + 1),
+      (row, column - 1), (row, column + 1),
+      (row + 1, column - 1), (row + 1, column), (row + 1, column + 1),
+    ]
+    
+    // フィールドの外のものは外す
+    return squarePositions.filter({
+      let x = $0.0
+      let y = $0.1
+      let setting = GameData.sharedInstance.setting
+      let fieldWidth = setting.fieldWidth
+      let fieldHeight = setting.fieldHeight
+      
+      return 0...fieldWidth-1 ~= x && 0...fieldHeight-1 ~= y
+    })
+  }
+  
+  /**
   *  爆弾でなく、かつ開いていないマスのStateクラス
   */
   private class EmptyState: SquareState {
@@ -141,19 +173,46 @@ class Square : UIImageView {
       let tapMode: TapMode = GameData.sharedInstance.tapMode
       
       if tapMode == TapMode.CheckBomb {
-        // フラグを立てる
+        // 「地雷チェック」モードのとき
         square.image = UIImage(named: Const.imgFlagName)
         square.state = FlagState.sharedInstance
         GameData.sharedInstance.flagUnused--
       } else {
-        // 周囲の爆弾の数を計算し、数を表示
+        // マスの中身に合わせて処理を変更
         square.state = OpenState.sharedInstance
-        let bombCount: ContentType = ContentJudge.sharedInstance.judgeNumber(square)
-        let imageName: String = ContentType.getImageName(bombCount)
+
+        // 「空」だった場合は、隣接マスを自動開放
+        if square.bombCount == 0 {
+          doAutoOpen(square)
+        } else {
+          println("\(square.position)、自動開放せず。")
+        }
+        
+        // 画像の切り替え
+        let bombCountType: ContentType = ContentType(rawValue: square.bombCount)!
+        let imageName: String = ContentType.getImageName(bombCountType)
         square.image = UIImage(named: imageName)
       }
 
       GameManager.sharedInstance.judgeGameIsCleared()
+    }
+
+    /**
+    タップ対象が空だった時、周囲のマスの自動開放をおこなう
+    
+    :param: square マスのインスタンス
+    */
+    private func doAutoOpen(square: Square) {
+      println("\(square.position)が「空」。自動開放実行。")
+      let surroundSquarePositions: [(Int, Int)] = square.getSurroundSquarePositions()
+      
+      for position in surroundSquarePositions {
+        println("\(position)：\(square.position)による自動開放")
+        let targetSquare: Square = GameData.sharedInstance.squares[position.0][position.1]
+        
+        // 自動開放したマスも「空」だった場合、再帰的に周囲も自動開放していく
+        targetSquare.state.doTouchUp(targetSquare)
+      }
     }
     
     private func getType(square: Square) -> SquareStateType {
